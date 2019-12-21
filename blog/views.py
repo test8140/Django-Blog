@@ -1,11 +1,30 @@
+
 from django.shortcuts import render
 
-# Create your views here.
-from django.shortcuts import render
+from .models import Post, Tag
 
 #from django.http import HttpResponse
 
 
 def posts_list(request):
-    names = ['Billi', 'Garri', 'Sara', 'Kelli']
-    return render(request, 'blog/index.html', context={'names': names})
+    posts = Post.objects.all()
+    return render(request, 'blog/index.html', context={'posts': posts})
+
+
+def post_detail(request, slug):
+    post = Post.objects.get(slug=slug)
+    return render(request, 'blog/post_detail.html', context={'post': post})
+
+
+def tags_list(request):
+    tags = Tag.objects.all()
+    return render(request, 'blog/tags_list.html', context={'tags': tags})
+
+
+def tag_detail(request, slug):
+    tag = Tag.objects.get(slug=slug)
+    return render(request, 'blog/tag_detail.html', context={'tag': tag})
+
+
+
+
